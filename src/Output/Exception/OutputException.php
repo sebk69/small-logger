@@ -6,9 +6,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver\Exception;
+namespace Sebk\SmallLogger\Output\Exception;
 
-class DriverException extends \Exception
+class OutputException extends \Exception
 {
 
 }

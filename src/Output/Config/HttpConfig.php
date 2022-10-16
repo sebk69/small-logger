@@ -6,9 +6,9 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver\Config;
+namespace Sebk\SmallLogger\Output\Config;
 
-use Sebk\SmallLogger\Driver\Exception\DriverConfigException;
+use Sebk\SmallLogger\Output\Exception\OutputConfigException;
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 
 class HttpConfig implements OutputConfigInterface
@@ -20,17 +20,24 @@ class HttpConfig implements OutputConfigInterface
     const DELETE = 'delete';
 
     /** Header keys */
-    const HTTP_HEADER_AUTHORIZATION = "Authorization";
-    const HTTP_HEADER_CONTENT_TYPE = "Content-Type";
+    const HTTP_HEADER_AUTHORIZATION = 'Authorization';
+    const HTTP_HEADER_CONTENT_TYPE = 'Content-Type';
 
     /** Header values */
-    const HTTP_HEADER_TEXT_PLAIN = "text/plain";
-    const HTTP_HEADER_APPLICATION_JSON = "application/json";
-    const HTTP_HEADER_APPLICATION_XML = "application/xml";
+    const HTTP_HEADER_TEXT_PLAIN = 'text/plain';
+    const HTTP_HEADER_APPLICATION_JSON = 'application/json';
+    const HTTP_HEADER_APPLICATION_XML = 'application/xml';
 
-    public function __construct(protected string $host, protected int $port, protected bool $ssl, protected string $method = 'POST', protected string $uri = '/', protected array $hearders = []) {
+    public function __construct(
+        protected string $host,
+        protected int $port,
+        protected bool $ssl,
+        protected string $method = self::POST,
+        protected string $uri = '/',
+        protected array $hearders = []
+    ) {
         if (!in_array($this->method, [static::GET, static::POST, static::PUT, static::DELETE])) {
-            throw new DriverConfigException('Invalid method');
+            throw new OutputConfigException('Invalid method');
         }
     }
 

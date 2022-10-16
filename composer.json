@@ -12,7 +12,15 @@
   "require": {
     "php": ">=8.0"
   },
+  "require-dev": {
+    "ext-swoole": ">=4.8",
+    "guzzlehttp/guzzle": ">=7.5",
+    "phpunit/phpunit": "^9"
+  },
   "autoload": {
-    "psr-4": { "Sebk\\SmallLogger\\": "src" }
+    "psr-4": {
+      "Sebk\\SmallLogger\\": "src",
+      "Sebk\\SmallLogger\\Test\\": "tests"
+    }
   }
 }

@@ -6,12 +6,12 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver;
+namespace Sebk\SmallLogger\Output;
 
-use Sebk\SmallLogger\Driver\Exception\DriverConfigException;
+use Sebk\SmallLogger\Output\Exception\OutputConfigException;
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 use Sebk\SmallLogger\Contracts\OutputInterface;
-use Sebk\SmallLogger\Driver\Config\StdOutputConfig;
+use Sebk\SmallLogger\Output\Config\StdOutputConfig;
 
 class StdOutput implements OutputInterface
 {
@@ -22,12 +22,12 @@ class StdOutput implements OutputInterface
      * Set config
      * @param OutputConfigInterface $outputConfig
      * @return OutputInterface
-     * @throws DriverConfigException
+     * @throws OutputConfigException
      */
     public function setConfig(OutputConfigInterface $outputConfig): OutputInterface
     {
         if (!$outputConfig instanceof StdOutputConfig) {
-            throw new DriverConfigException('Config must be a \'' . StdOutputConfig::class . '\' instance');
+            throw new OutputConfigException('Config must be a \'' . StdOutputConfig::class . '\' instance');
         }
 
         $this->outputConfig = $outputConfig;
@@ -40,7 +40,7 @@ class StdOutput implements OutputInterface
      * @param string $message
      * @return $this
      */
-    public function write(string $message): FileOutput
+    public function write(string $message): StdOutput
     {
         fwrite($this->outputConfig->getOutput(), $message . "\n");
 

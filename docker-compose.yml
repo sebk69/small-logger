@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  unit-test:
+    container_name: small-logger-unit-test
+    build: .
+    volumes:
+      - .:/usr/lib/small-logger

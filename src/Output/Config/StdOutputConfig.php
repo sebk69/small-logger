@@ -6,22 +6,22 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver\Config;
+namespace Sebk\SmallLogger\Output\Config;
 
-use Sebk\SmallLogger\Contracts\DriverConfigException;
+use Sebk\SmallLogger\Contracts\OutputConfigException;
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 
 class StdOutputConfig implements OutputConfigInterface
 {
 
-    public function __construct(protected string $output)
+    public function __construct(protected mixed $output)
     {
         if (!in_array($this->output, [STDOUT, STDERR])) {
-            throw new DriverConfigException('The output parameter must be \'STDOUT\' or \'STDERR\'');
+            throw new OutputConfigException('The output parameter must be \'STDOUT\' or \'STDERR\'');
         }
     }
 
-    public function getOutput(): string
+    public function getOutput(): mixed
     {
         return $this->output;
     }

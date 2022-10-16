@@ -6,13 +6,13 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver;
+namespace Sebk\SmallLogger\Output;
 
-use Guzzle\Http\Client;
-use Sebk\SmallLogger\Driver\Exception\DriverConfigException;
+use GuzzleHttp\Client;
+use Sebk\SmallLogger\Output\Exception\OutputConfigException;
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 use Sebk\SmallLogger\Contracts\OutputInterface;
-use Sebk\SmallLogger\Driver\Config\HttpConfig;
+use Sebk\SmallLogger\Output\Config\HttpConfig;
 
 class GuzzleHttpOutput implements OutputInterface
 {
@@ -32,12 +32,12 @@ class GuzzleHttpOutput implements OutputInterface
      * Set config
      * @param OutputConfigInterface $outputConfig
      * @return OutputInterface
-     * @throws DriverConfigException
+     * @throws OutputConfigException
      */
     public function setConfig(OutputConfigInterface $outputConfig): OutputInterface
     {
         if (!$outputConfig instanceof HttpConfig) {
-            throw new DriverConfigException('Config must be a \'' . HttpConfig::class . '\' instance');
+            throw new OutputConfigException('Config must be a \'' . HttpConfig::class . '\' instance');
         }
 
         $this->outputConfig = $outputConfig;
@@ -45,19 +45,24 @@ class GuzzleHttpOutput implements OutputInterface
         return $this;
     }
 
+    protected function getClient(): Client
+    {
+        return new Client([
+            'base_uri' => ($this->outputConfig->isSsl() ? 'https://' : 'http://') .
+                $this->outputConfig->getHost() .
+                ($this->outputConfig->getPort() != 80 ? ':' . $this->outputConfig->getPort() : '')
+        ]);
+    }
+
     /**
      * Write message to http service
      * @param string $message
      * @return OutputInterface
      */
-    public function write(string $message): OutputInterface
+    public function write(string $message, $client = null): OutputInterface
     {
-        $client = new Client([
-            'base_uri' => ($this->outputConfig->isSsl() ? 'https://' : 'http://') . $this->outputConfig->getHost()
-        ]);
-
         $method = $this->outputConfig->getMethod();
-        $client->$method($this->outputConfig->getUri(), [
+        $this->getClient()->$method($this->outputConfig->getUri(), [
             'body' => $message,
             'headers' => $this->outputConfig->getHeaders(),
         ]);

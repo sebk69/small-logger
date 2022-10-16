@@ -6,13 +6,14 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver;
+namespace Sebk\SmallLogger\Output;
 
-use Sebk\SmallLogger\Driver\Exception\DriverConfigException;
+use Sebk\SmallLogger\Output\Exception\OutputConfigException;
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 use Sebk\SmallLogger\Contracts\OutputInterface;
-use Sebk\SmallLogger\Driver\Config\HttpConfig;
+use Sebk\SmallLogger\Output\Config\HttpConfig;
 use Swoole\Coroutine;
+use Swoole\Coroutine\Http\Client;
 
 class SwooleHttpOutput implements OutputInterface
 {
@@ -32,12 +33,12 @@ class SwooleHttpOutput implements OutputInterface
      * Set config
      * @param OutputConfigInterface $outputConfig
      * @return OutputInterface
-     * @throws DriverConfigException
+     * @throws OutputConfigException
      */
     public function setConfig(OutputConfigInterface $outputConfig): OutputInterface
     {
         if (!$outputConfig instanceof HttpConfig) {
-            throw new DriverConfigException('Config must be a \'' . HttpConfig::class . '\' instance');
+            throw new OutputConfigException('Config must be a \'' . HttpConfig::class . '\' instance');
         }
 
         $this->outputConfig = $outputConfig;
@@ -52,15 +53,21 @@ class SwooleHttpOutput implements OutputInterface
      */
     public function write(string $message): OutputInterface
     {
-        $client = new Client([
-            'base_uri' => ($this->outputConfig->isSsl() ? 'https://' : 'http://') . $this->outputConfig->getHost()
-        ]);
+        if (Coroutine::getCid() == -1) {
+            Coroutine\run(function () use ($message) {
+                $this->write($message);
+            });
+        }
 
-        $method = $this->outputConfig->getMethod();
-        $client->$method($this->outputConfig->getUri(), [
-            'body' => $message,
-            'headers' => $this->outputConfig->getHeaders(),
-        ]);
+        Coroutine\go(function () use ($message) {
+            $client = new Client($this->outputConfig->getHost(), $this->outputConfig->getPort(), $this->outputConfig->isSsl());
+
+            $method = $this->outputConfig->getMethod();
+            $client->$method($this->outputConfig->getUri(), [
+                'body' => $message,
+                'headers' => $this->outputConfig->getHeaders(),
+            ]);
+        });
 
         return $this;
     }

@@ -6,7 +6,7 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver\Config;
+namespace Sebk\SmallLogger\Output\Config;
 
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 
@@ -21,6 +21,6 @@ class FileOutputConfig implements OutputConfigInterface
      */
     public function getFilename(): string
     {
-        return $this->getFilename();
+        return $this->filename;
     }
 }

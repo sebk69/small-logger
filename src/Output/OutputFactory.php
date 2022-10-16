@@ -6,17 +6,13 @@
  * Under GNU GPL V3 licence
  */
 
-namespace Sebk\SmallLogger\Driver;
+namespace Sebk\SmallLogger\Output;
 
 use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 use Sebk\SmallLogger\Contracts\OutputInterface;
-use Sebk\SmallLogger\Driver\Exception\DriverException;
-use Sebk\SmallLogger\Driver\FileOutput;
-use Sebk\SmallLogger\Driver\GuzzleHttpOutput;
-use Sebk\SmallLogger\Driver\StdOutput;
-use Sebk\SmallLogger\Driver\SwooleHttpOutput;
+use Sebk\SmallLogger\Output\Exception\OutputException;
 
-class DriverFactory
+class OutputFactory
 {
 
     /**
@@ -33,23 +29,23 @@ class DriverFactory
      * @param string $type
      * @param string $class
      * @return $this
-     * @throws DriverException
+     * @throws OutputException
      */
-    public function addDriver(string $type, string $class): DriverFactory
+    public function addOutput(string $type, string $class): OutputFactory
     {
         if (!class_exists($class)) {
-            throw new DriverException('Driver class ' . $class . ' does not exists !');
+            throw new OutputException('Output class ' . $class . ' does not exists !');
         }
 
         if (!class_implements($class)) {
-            throw new DriverException('Driver class must implements ' . OutputInterface::class);
+            throw new OutputException('Output class must implements ' . OutputInterface::class);
         }
 
-        if (!in_array($type, $this->driversByType)) {
+        if (!array_key_exists($type, $this->driversByType)) {
             $this->driversByType[$type] = [];
         }
 
-        $this->driversByType[$type] = $class;
+        $this->driversByType[$type][] = $class;
 
         return $this;
     }
@@ -59,12 +55,12 @@ class DriverFactory
      * @param string $type
      * @param OutputConfigInterface $config
      * @return OutputInterface
-     * @throws DriverException
+     * @throws OutputException
      */
     public function get(string $type, OutputConfigInterface $config): OutputInterface
     {
-        if (!in_array($type, $this->driversByType)) {
-            throw new DriverException('There is no log driver for type \'' . $type . '\'');
+        if (!array_key_exists($type, $this->driversByType)) {
+            throw new OutputException('There is no output class for type \'' . $type . '\'');
         }
 
         foreach ($this->driversByType[$type] as $driverClass) {
@@ -76,7 +72,7 @@ class DriverFactory
             } catch (\Exception $e) {}
         }
 
-        throw new DriverException('Can\'t get compatible driver for ' . $type . ' with this config');
+        throw new OutputException('Can\'t get compatible output class for ' . $type . ' with this config');
     }
 
 }

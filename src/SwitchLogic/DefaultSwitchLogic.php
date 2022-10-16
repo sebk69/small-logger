@@ -11,8 +11,8 @@ namespace Sebk\SmallLogger\SwitchLogic;
 use Sebk\SmallLogger\Contracts\LogInterface;
 use Sebk\SmallLogger\Contracts\StreamInterface;
 use Sebk\SmallLogger\Contracts\SwitchLogicInterface;
-use Sebk\SmallLogger\Driver\Config\StdOutputConfig;
-use Sebk\SmallLogger\Driver\StdOutput;
+use Sebk\SmallLogger\Output\Config\StdOutputConfig;
+use Sebk\SmallLogger\Output\StdOutput;
 use Sebk\SmallLogger\Formatter\BasicLogTextFormatter;
 use Sebk\SmallLogger\Stream\Stream;
 

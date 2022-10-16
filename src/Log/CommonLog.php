@@ -22,8 +22,8 @@ class CommonLog implements LogInterface
         protected string $method,
         protected string $uri,
         protected string $httpProtocol,
-        protected string $httpStatus,
-        protected string $sizeInBytes
+        protected int $httpStatus,
+        protected int $sizeInBytes
     ) {
         $this->dateTime = new \DateTime();
     }

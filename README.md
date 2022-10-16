@@ -69,8 +69,9 @@ You can easy customize the behaviour of logs by writing your own classes impleme
 - driver : the output writer
 
 For example, we want to write to logstash. We will use the http type with the driver factory. To get the best appropriate driver for your project, use the driver factory :
+
 ```php
-$output = (new \Sebk\SmallLogger\Driver\DriverFactory)->get('http');
+$output = (new \Sebk\SmallLogger\Output\DriverFactory)->get('http');
 ```
 
 New we have the driver, we can create our switcher :
@@ -81,11 +82,11 @@ class httpSwitcher implements \Sebk\SmallLogger\Contracts\SwitchLogicInterface
 
     protected \Sebk\SmallLogger\Contracts\StreamInterface $stream;
     
-    public function __construct(\Sebk\SmallLogger\Driver\Config\HttpConfig $config)
+    public function __construct(\Sebk\SmallLogger\Output\Config\HttpConfig $config)
     {
         $this->stream = new \Sebk\SmallLogger\Stream\Stream(
             new \Sebk\SmallLogger\Formatter\JsonFormatter(), 
-            (new \Sebk\SmallLogger\Driver\DriverFactory)->get('http')
+            (new \Sebk\SmallLogger\Output\DriverFactory)->get('http')
         );
     }
     
@@ -97,9 +98,10 @@ class httpSwitcher implements \Sebk\SmallLogger\Contracts\SwitchLogicInterface
 ```
 
 Now define your switch in logger and log :
+
 ```php
 \Sebk\SmallLogger\Logger::setSwitchLogic(new HttpSwitcher(
-    new \Sebk\SmallLogger\Driver\Config\HttpConfig(
+    new \Sebk\SmallLogger\Output\Config\HttpConfig(
         'logstash.my-domain.com',
         8080,
         true
