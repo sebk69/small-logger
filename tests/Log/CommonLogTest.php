@@ -18,29 +18,21 @@ class CommonLogTest extends TestCase
     public function testGetters(): void
     {
         // Create BasicLog
-        $level = LogInterface::ERR_LEVEL_CRITICAL;
-        $ip = '127.0.0.0';
-        $userId = 'sebk';
-        $method = 'GET';
-        $uri = 'app/test.html';
-        $httpProtocol = 'HTTP 1.0';
-        $httpStatus = 200;
-        $sizeInBytes = 128;
-
         $testLog = new CommonLog(
-            $level,
-            $ip,
-            $userId,
-            $method,
-            $uri,
-            $httpProtocol,
-            $httpStatus,
-            $sizeInBytes
+            $date = new \DateTime(),
+            $level = LogInterface::ERR_LEVEL_CRITICAL,
+            $ip = '127.0.0.0',
+            $userId = 'sebk',
+            $method = 'GET',
+            $uri = 'app/test.html',
+            $httpProtocol = 'HTTP 1.0',
+            $httpStatus = 200,
+            $sizeInBytes = 128,
         );
 
         // Assert date
         $this->assertEquals(
-            (new \DateTime())->format('Y-m-d H:i:s'),
+            $date->format('Y-m-d H:i:s'),
             $testLog->getDateTime()->format('Y-m-d H:i:s')
         );
 

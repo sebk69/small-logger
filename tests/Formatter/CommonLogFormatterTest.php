@@ -20,6 +20,7 @@ class CommonLogFormatterTest extends TestCase
     {
 
         $testLog = new CommonLog(
+            $date = new \DateTime(),
             $level = LogInterface::ERR_LEVEL_ERROR,
             $ip = '127.0.0.1',
             $userId = 'sebk',
@@ -35,7 +36,7 @@ class CommonLogFormatterTest extends TestCase
 
         $this->assertEquals(
             '127.0.0.1 - sebk [' .
-            strftime('%d/%b/%Y:%H:%M:%S %z', $testLog->getDateTime()->getTimestamp()) . '] GET /test/12.html HTTP 1.0 200 256',
+            strftime('%d/%b/%Y:%H:%M:%S %z', $date->getTimestamp()) . '] GET /test/12.html HTTP 1.0 200 256',
             $text
         );
 
