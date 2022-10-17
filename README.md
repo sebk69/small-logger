@@ -123,3 +123,21 @@ Now define your switch in logger and log :
     'This an error'
 ));
 ```
+
+## Unit tests
+
+To run unit tests, you are require to build unit-test container :
+```php
+$ sudo apt-get update && apt-get install docker docker-compose
+$ docker-compose up -d --build
+```
+
+Then the container will build environement for testing and launch tests.
+
+If you want to develop and add unit tests, turn off the **BUILD** environement var in docker-compose.yml by setting it to **0** :
+```
+...
+    environment:
+      - BUILD=1 # If set to 0, the unit test are not launched and container will sleep to let you run all tests commands you want when you develop tests
+...
+```
