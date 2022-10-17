@@ -66,18 +66,21 @@ And this call will write in '/var/log/my-error-log.log' :
 You can easy customize the behaviour of logs by writing your own classes implementing interfaces :
 - switch : the switch logic
 - formatter : log class diggest to log format
-- driver : the output writer
+- output : the output writer
 
-For example, we want to write to logstash. We will use the http type with the driver factory. To get the best appropriate driver for your project, use the driver factory :
+For example, we want to write to logstash. We will use the http type with the output factory. To get the best appropriate output for your project, use the output factory :
 
 ```php
-$output = (new \Sebk\SmallLogger\Output\DriverFactory)->get('http');
+$output = (new \Sebk\SmallLogger\Output\OutputFactory())->get('http', new \Sebk\SmallLogger\Output\Config\HttpConfig('localhost', 8080, false));
 ```
 
-New we have the driver, we can create our switcher :
+New we have the output, we can create our switcher :
 
 ```php
-class httpSwitcher implements \Sebk\SmallLogger\Contracts\SwitchLogicInterface
+
+namespace App\Logs;
+
+class HttpSwitcherLogic implements \Sebk\SmallLogger\Contracts\SwitchLogicInterface
 {
 
     protected \Sebk\SmallLogger\Contracts\StreamInterface $stream;
@@ -86,16 +89,23 @@ class httpSwitcher implements \Sebk\SmallLogger\Contracts\SwitchLogicInterface
     {
         $this->stream = new \Sebk\SmallLogger\Stream\Stream(
             new \Sebk\SmallLogger\Formatter\JsonFormatter(), 
-            (new \Sebk\SmallLogger\Output\DriverFactory)->get('http')
+            (new \Sebk\SmallLogger\Output\OutputFactory())->get('http', $config)
         );
     }
     
     public function getStream(\Sebk\SmallLogger\Contracts\LogInterface $log, array $data = []) : \Sebk\SmallLogger\Contracts\StreamInterface
     {
-        $this->stream->write($log);
+        $this->stream;
     }
+    
 }
 ```
+
+In the getStream method, you can put your logic to manage more than one stream depends on $log itself or additional $data.
+
+For example, you can set up a stream for error level and a stream for critical level.
+
+If you want, the $data array may inject information to switch in complex architectures.
 
 Now define your switch in logger and log :
 

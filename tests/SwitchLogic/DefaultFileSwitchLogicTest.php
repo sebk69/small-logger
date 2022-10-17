@@ -20,7 +20,6 @@ class DefaultFileSwitchLogicTest extends TestCase
 
     public function testSwitch()
     {
-
         // Create switch
         $filename = '/tmp/test.log';
         $filenameError = '/tmp/test.error.log';

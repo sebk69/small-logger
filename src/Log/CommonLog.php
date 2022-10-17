@@ -19,9 +19,8 @@ class CommonLog implements LogInterface
     const METHOD_DELETE = 'DELETE';
     const METHOD_OPTION = 'OPTION';
 
-    protected \DateTime $dateTime;
-
     public function __construct(
+        protected \DateTime $dateTime,
         protected string $level,
         protected string $ip,
         protected string $userId,
@@ -30,9 +29,7 @@ class CommonLog implements LogInterface
         protected string $httpProtocol,
         protected int $httpStatus,
         protected int $sizeInBytes
-    ) {
-        $this->dateTime = new \DateTime();
-    }
+    ) {}
 
     /**
      * Get level
