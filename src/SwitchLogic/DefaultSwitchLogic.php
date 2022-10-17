@@ -35,7 +35,7 @@ class DefaultSwitchLogic implements SwitchLogicInterface
      */
     public function getStream(LogInterface $log, array $data = []): StreamInterface
     {
-        if (in_array($log->getLevel(), LogInterface::ERR_LEVEL_ERROR, LogInterface::ERR_LEVEL_CRITICAL)) {
+        if (in_array($log->getLevel(), [LogInterface::ERR_LEVEL_ERROR, LogInterface::ERR_LEVEL_CRITICAL])) {
             return $this->streamStdErr;
         }
 

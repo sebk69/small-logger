@@ -11,7 +11,6 @@ namespace Sebk\SmallLogger\Test\Output;
 use Guzzle\Http\Client;
 use PHPUnit\Framework\TestCase;
 use Sebk\SmallLogger\Output\Config\HttpConfig;
-use Sebk\SmallLogger\Output\GuzzleHttpOutput;
 use Sebk\SmallLogger\Output\SwooleHttpOutput;
 
 class SwooleHttpOutputTest extends TestCase

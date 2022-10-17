@@ -12,7 +12,6 @@ use PHPUnit\Framework\TestCase;
 use Sebk\SmallLogger\Output\Config\FileOutputConfig;
 use Sebk\SmallLogger\Output\Config\StdOutputConfig;
 use Sebk\SmallLogger\Output\Exception\OutputConfigException;
-use Sebk\SmallLogger\Output\OutputFactory;
 use Sebk\SmallLogger\Output\StdOutput;
 
 class StdOutputTest extends TestCase

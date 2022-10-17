@@ -13,11 +13,8 @@ use Sebk\SmallLogger\Contracts\LogInterface;
 use Sebk\SmallLogger\Formatter\BasicLogTextFormatter;
 use Sebk\SmallLogger\Log\BasicLog;
 use Sebk\SmallLogger\Output\Config\FileOutputConfig;
-use Sebk\SmallLogger\Output\Config\StdOutputConfig;
 use Sebk\SmallLogger\Output\FileOutput;
-use Sebk\SmallLogger\Output\StdOutput;
 use Sebk\SmallLogger\Stream\Stream;
-use function PHPUnit\Framework\assertEquals;
 
 class StreamTest extends TestCase
 {

@@ -29,8 +29,8 @@ class DefaultFileSwitchLogic
             $errorFilename = $logFilename;
         }
 
-        $this->streamLogs = new Stream(new BasicLogTextFormatter(), new FileOutput(new FileOutputConfig($logFilename)));
-        $this->streamErrors = new Stream(new BasicLogTextFormatter(), new FileOutput(new FileOutputConfig($errorFilename)));
+        $this->streamLogs = new Stream(new BasicLogTextFormatter(), (new FileOutput())->setConfig(new FileOutputConfig($logFilename)));
+        $this->streamErrors = new Stream(new BasicLogTextFormatter(), (new FileOutput())->setConfig(new FileOutputConfig($errorFilename)));
     }
 
     /**
@@ -40,7 +40,7 @@ class DefaultFileSwitchLogic
      */
     public function getStream(LogInterface $log, array $data = []): StreamInterface
     {
-        if (in_array($log->getLevel(), LogInterface::ERR_LEVEL_ERROR, LogInterface::ERR_LEVEL_CRITICAL)) {
+        if (in_array($log->getLevel(), [LogInterface::ERR_LEVEL_ERROR, LogInterface::ERR_LEVEL_CRITICAL])) {
             return $this->streamErrors;
         }
 
