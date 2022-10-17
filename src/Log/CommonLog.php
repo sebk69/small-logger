@@ -13,6 +13,12 @@ use Sebk\SmallLogger\Contracts\LogInterface;
 class CommonLog implements LogInterface
 {
 
+    const METHOD_GET = 'GET';
+    const METHOD_POST = 'POST';
+    const METHOD_PUT = 'PUT';
+    const METHOD_DELETE = 'DELETE';
+    const METHOD_OPTION = 'OPTION';
+
     protected \DateTime $dateTime;
 
     public function __construct(

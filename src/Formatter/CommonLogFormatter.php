@@ -27,7 +27,7 @@ class CommonLogFormatter implements FormatterInterface
             throw new FormatterException(static::class . ' can format only ' . LogInterface::class . ' class that implements ' . CommonLog::class);
         }
 
-        return $log->getIp() . ' - ' . $log->getUserId() . ' [' . strtotime('%d/%b/%Y:%H:%M:%S %z', $log->getDateTime()->getTimestamp()) .
+        return $log->getIp() . ' - ' . $log->getUserId() . ' [' . strftime('%d/%b/%Y:%H:%M:%S %z', $log->getDateTime()->getTimestamp()) .
             '] ' . $log->getMethod() . ' ' . $log->getUri() . ' ' . $log->getHttpProtocol() . ' ' . $log->getHttpStatus() . ' ' . $log->getSizeInBytes();
     }
 
