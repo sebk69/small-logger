@@ -12,7 +12,7 @@ interface SwitchLogicInterface
 {
 
     /**
-     * Return stream from log to write and optional data
+     * Return stream from log to write and optional non logged data
      * @param LogInterface $log
      * @param array $data
      * @return StreamInterface

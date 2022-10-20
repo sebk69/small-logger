@@ -21,7 +21,7 @@ class CommonLogFormatter implements FormatterInterface
      * @return string
      * @throws FormatterException
      */
-    public function format(\Sebk\SmallLogger\Contracts\LogInterface $log): mixed
+    public function format(CommonLog $log): mixed
     {
         if (!$log instanceof CommonLog) {
             throw new FormatterException(static::class . ' can format only ' . LogInterface::class . ' class that implements ' . CommonLog::class);
