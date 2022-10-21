@@ -2,10 +2,16 @@
 
 Small logger is a simple php logger you can easily extends for your own need.
 
-Bascliy, it implements possibility to log to :
-- Standard output
-- File (With log rotates)
-- Http service such as logstash
+Basically, it implements possibility to log to :
+Standard output
+File (With log rotates)
+Http service such as logstash
+
+It it easy to implement your own Formatter or Output writer.
+
+SwitchLogicInterface allow you to implements your own logic to manage multiple log streams.
+
+It also possible to add shortcut to logger for easier use by final developer.
 
 ## Install
 
