@@ -71,7 +71,7 @@ You can easy customize the behaviour of logs by writing your own classes impleme
 For example, we want to write to logstash. We will use the http type with the output factory. To get the best appropriate output for your project, use the output factory :
 
 ```php
-$output = (new \Sebk\SmallLogger\Output\OutputFactory())->get('http', new \Sebk\SmallLogger\Output\Config\HttpConfig('localhost', 8080, false));
+$output = \Sebk\SmallLogger\Output\OutputFactory::get('http', new \Sebk\SmallLogger\Output\Config\HttpConfig('localhost', 8080, false));
 ```
 
 New we have the output, we can create our switcher :
@@ -89,7 +89,7 @@ class HttpSwitcherLogic implements \Sebk\SmallLogger\Contracts\SwitchLogicInterf
     {
         $this->stream = new \Sebk\SmallLogger\Stream\Stream(
             new \Sebk\SmallLogger\Formatter\JsonFormatter(), 
-            (new \Sebk\SmallLogger\Output\OutputFactory())->get('http', $config)
+            \Sebk\SmallLogger\Output\OutputFactory::get('http', $config)
         );
     }
     
