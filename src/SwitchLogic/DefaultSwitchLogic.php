@@ -24,8 +24,10 @@ class DefaultSwitchLogic implements SwitchLogicInterface
 
     public function __construct()
     {
-        $this->streamStdOut = new Stream(new BasicLogTextFormatter(), new StdOutput(new StdOutputConfig(STDOUT)));
-        $this->streamStdErr = new Stream(new BasicLogTextFormatter(), new StdOutput(new StdOutputConfig(STDERR)));
+        $this->streamStdOut = new Stream(new BasicLogTextFormatter(), $stdout = new StdOutput());
+        $stdout->setConfig(new StdOutputConfig(STDOUT));
+        $this->streamStdErr = new Stream(new BasicLogTextFormatter(), $stderr = new StdOutput());
+        $stderr->setConfig(new StdOutputConfig(STDERR));
     }
 
     /**
