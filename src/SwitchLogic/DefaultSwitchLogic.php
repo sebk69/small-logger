@@ -24,13 +24,13 @@ class DefaultSwitchLogic implements SwitchLogicInterface
 
     public function __construct()
     {
-        $this->streamStdOut = new Stream(new BasicLogTextFormatter(), $stdout = new StdOutput());
-        $stdout->setConfig(new StdOutputConfig(STDOUT));
-        $this->streamStdErr = new Stream(new BasicLogTextFormatter(), $stderr = new StdOutput());
-        $stderr->setConfig(new StdOutputConfig(STDERR));
+        // Create streams
+        $this->streamStdOut = new Stream(new BasicLogTextFormatter(), OutputFactory::get('std', new StdOutputConfig(STDOUT)));
+        $this->streamStdErr = new Stream(new BasicLogTextFormatter(), OutputFactory::get('std', new StdOutputConfig(STDERR)));
     }
 
     /**
+     * Get stream for log
      * @param LogInterface $log
      * @param array $data
      * @return StreamInterface

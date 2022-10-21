@@ -59,7 +59,7 @@ class GuzzleHttpOutput implements OutputInterface
      * @param string $message
      * @return OutputInterface
      */
-    public function write(string $message, $client = null): OutputInterface
+    public function write(string $message): OutputInterface
     {
         $method = $this->outputConfig->getMethod();
         $this->getClient()->$method($this->outputConfig->getUri(), [

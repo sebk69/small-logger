@@ -18,7 +18,7 @@ class OutputFactory
     /**
      * List of driver classes by type ordered by priority
      */
-    protected array $driversByType = [
+    protected static array $driversByType = [
         'std' => [StdOutput::class],
         'file' => [FileOutput::class],
         'http' => [SwooleHttpOutput::class, GuzzleHttpOutput::class]
@@ -28,10 +28,10 @@ class OutputFactory
      * Add a driver class
      * @param string $type
      * @param string $class
-     * @return $this
+     * @return void
      * @throws OutputException
      */
-    public function addOutput(string $type, string $class): OutputFactory
+    public static function addOutput(string $type, string $class): void
     {
         if (!class_exists($class)) {
             throw new OutputException('Output class ' . $class . ' does not exists !');
@@ -41,13 +41,11 @@ class OutputFactory
             throw new OutputException('Output class must implements ' . OutputInterface::class);
         }
 
-        if (!array_key_exists($type, $this->driversByType)) {
-            $this->driversByType[$type] = [];
+        if (!array_key_exists($type, self::$driversByType)) {
+            self::$driversByType[$type] = [];
         }
 
-        $this->driversByType[$type][] = $class;
-
-        return $this;
+        self::$driversByType[$type][] = $class;
     }
 
     /**
@@ -57,13 +55,13 @@ class OutputFactory
      * @return OutputInterface
      * @throws OutputException
      */
-    public function get(string $type, OutputConfigInterface $config): OutputInterface
+    public static function get(string $type, OutputConfigInterface $config): OutputInterface
     {
-        if (!array_key_exists($type, $this->driversByType)) {
+        if (!array_key_exists($type, self::$driversByType)) {
             throw new OutputException('There is no output class for type \'' . $type . '\'');
         }
 
-        foreach ($this->driversByType[$type] as $driverClass) {
+        foreach (self::$driversByType[$type] as $driverClass) {
             try {
                 $driver = new $driverClass();
                 if ($driver->checkCompatibility()) {
