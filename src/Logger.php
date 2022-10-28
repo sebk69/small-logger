@@ -14,9 +14,9 @@ use Sebk\SmallLogger\Contracts\SwitchLogicInterface;
 class Logger
 {
 
-    protected static SwitchLogicInterface $switchLogic;
+    protected static $switchLogic;
     /** @var \Closure[] */
-    protected static array $shortcuts = [];
+    protected static $shortcuts = [];
 
     /**
      * Se
