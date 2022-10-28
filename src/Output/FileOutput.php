@@ -16,7 +16,7 @@ use Sebk\SmallLogger\Output\Config\FileOutputConfig;
 class FileOutput implements OutputInterface
 {
 
-    protected FileOutputConfig $outputConfig;
+    protected $outputConfig;
 
     /**
      * Set config

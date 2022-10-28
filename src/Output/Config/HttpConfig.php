@@ -28,14 +28,28 @@ class HttpConfig implements OutputConfigInterface
     const HTTP_HEADER_APPLICATION_JSON = 'application/json';
     const HTTP_HEADER_APPLICATION_XML = 'application/xml';
 
+    protected $host;
+    protected $port;
+    protected $ssl;
+    protected $method = self::POST;
+    protected $uri = '/';
+    protected $hearders = [];
+
     public function __construct(
-        protected string $host,
-        protected int $port,
-        protected bool $ssl,
-        protected string $method = self::POST,
-        protected string $uri = '/',
-        protected array $hearders = []
+        string $host,
+        int $port,
+        bool $ssl,
+        string $method = self::POST,
+        string $uri = '/',
+        array $hearders = []
     ) {
+        $this->host = $host;
+        $this->port = $port;
+        $this->ssl = $ssl;
+        $this->method = $method;
+        $this->uri = $uri;
+        $this->hearders = $hearders;
+
         if (!in_array($this->method, [static::GET, static::POST, static::PUT, static::DELETE])) {
             throw new OutputConfigException('Invalid method');
         }

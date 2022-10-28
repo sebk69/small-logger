@@ -22,13 +22,13 @@ interface OutputInterface
      * @param OutputConfigInterface $outputConfig
      * @return mixed
      */
-    public function setConfig(OutputConfigInterface $outputConfig): OutputInterface;
+    public function setConfig(OutputConfigInterface $outputConfig);
 
     /**
      * Write message to output
      * @param mixed $message
      * @return OutputInterface
      */
-    public function write(string $message): OutputInterface;
+    public function write(string $message);
 
 }

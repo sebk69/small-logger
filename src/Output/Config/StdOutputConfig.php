@@ -14,14 +14,18 @@ use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 class StdOutputConfig implements OutputConfigInterface
 {
 
-    public function __construct(protected mixed $output)
+    protected $output;
+
+    public function __construct($output)
     {
+        $this->output = $output;
+        
         if (!in_array($this->output, [STDOUT, STDERR])) {
             throw new OutputConfigException('The output parameter must be \'STDOUT\' or \'STDERR\'');
         }
     }
 
-    public function getOutput(): mixed
+    public function getOutput()
     {
         return $this->output;
     }

@@ -18,8 +18,8 @@ use Sebk\SmallLogger\Stream\Stream;
 class DefaultFileSwitchLogic
 {
 
-    protected Stream $streamLogs;
-    protected Stream $streamErrors;
+    protected $streamLogs;
+    protected $streamErrors;
 
     public function __construct(string $logFilename, string $errorFilename = null)
     {

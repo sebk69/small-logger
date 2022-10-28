@@ -18,7 +18,7 @@ class OutputFactory
     /**
      * List of driver classes by type ordered by priority
      */
-    protected static array $driversByType = [
+    protected static $driversByType = [
         'std' => [StdOutput::class],
         'file' => [FileOutput::class],
         'http' => [SwooleHttpOutput::class, GuzzleHttpOutput::class]
@@ -31,7 +31,7 @@ class OutputFactory
      * @return void
      * @throws OutputException
      */
-    public static function addOutput(string $type, string $class): void
+    public static function addOutput(string $type, string $class)
     {
         if (!class_exists($class)) {
             throw new OutputException('Output class ' . $class . ' does not exists !');

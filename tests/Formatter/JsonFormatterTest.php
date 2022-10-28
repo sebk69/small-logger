@@ -35,7 +35,7 @@ class JsonFormatterTest extends TestCase
         $array = json_decode($formatter->format($testLog), true);
 
         // asserts
-        self::assertIsArray($array);
+        self::assertTrue(is_array($array));
 
         self::assertArrayHasKey('date', $array);
         self::assertArrayHasKey('level', $array);

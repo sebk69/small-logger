@@ -19,17 +19,17 @@ class CommonLogFormatterTest extends TestCase
     public function testFormatter()
     {
 
-        $testLog = new CommonLog(
-            $date = new \DateTime(),
-            $level = LogInterface::ERR_LEVEL_ERROR,
-            $ip = '127.0.0.1',
-            $userId = 'sebk',
-            $method = CommonLog::METHOD_GET,
-            $uri = '/test/12.html',
-            $protocol = 'HTTP 1.0',
-            $status = 200,
-            $size = 256
-        );
+        $date = new \DateTime();
+        $level = LogInterface::ERR_LEVEL_ERROR;
+        $ip = '127.0.0.1';
+        $userId = 'sebk';
+        $method = CommonLog::METHOD_GET;
+        $uri = '/test/12.html';
+        $protocol = 'HTTP 1.0';
+        $status = 200;
+        $size = 256;
+
+        $testLog = new CommonLog($date, $level, $ip, $userId, $method, $uri, $protocol, $status, $size);
 
         $formatter = new CommonLogFormatter();
         $text = $formatter->format($testLog);

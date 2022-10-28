@@ -15,7 +15,7 @@ use Sebk\SmallLogger\Log\BasicLog;
 class BasicLogTest extends TestCase
 {
 
-    public function testGetters(): void
+    public function testGetters()
     {
         // Create BasicLog
         $date = '1976-05-02 20:41:27';
@@ -47,7 +47,7 @@ class BasicLogTest extends TestCase
         );
     }
 
-    public function testSerialization(): void
+    public function testSerialization()
     {
         // Create BasicLog
         $date = '1976-05-02 20:41:27';
@@ -77,7 +77,7 @@ class BasicLogTest extends TestCase
         $this->assertEquals($data['message'], $message);
     }
 
-    public function testLevels(): void
+    public function testLevels()
     {
         $this->assertEquals(LogInterface::ERR_LEVEL_DEPRECATED, 'DEPRECATED');
         $this->assertEquals(LogInterface::ERR_LEVEL_INFO, 'INFO');

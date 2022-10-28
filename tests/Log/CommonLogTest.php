@@ -15,20 +15,20 @@ use Sebk\SmallLogger\Log\CommonLog;
 class CommonLogTest extends TestCase
 {
 
-    public function testGetters(): void
+    public function testGetters()
     {
         // Create BasicLog
-        $testLog = new CommonLog(
-            $date = new \DateTime(),
-            $level = LogInterface::ERR_LEVEL_CRITICAL,
-            $ip = '127.0.0.0',
-            $userId = 'sebk',
-            $method = 'GET',
-            $uri = 'app/test.html',
-            $httpProtocol = 'HTTP 1.0',
-            $httpStatus = 200,
-            $sizeInBytes = 128,
-        );
+        $date = new \DateTime();
+        $level = LogInterface::ERR_LEVEL_ERROR;
+        $ip = '127.0.0.1';
+        $userId = 'sebk';
+        $method = CommonLog::METHOD_GET;
+        $uri = '/test/12.html';
+        $httpProtocol = 'HTTP 1.0';
+        $httpStatus = 200;
+        $sizeInBytes = 256;
+
+        $testLog = new CommonLog($date, $level, $ip, $userId, $method, $uri, $httpProtocol, $httpStatus, $sizeInBytes);
 
         // Assert date
         $this->assertEquals(

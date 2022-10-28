@@ -13,6 +13,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Sebk\SmallLogger\Output\Config\HttpConfig;
 use Sebk\SmallLogger\Output\GuzzleHttpOutput;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GuzzleHttpOutputTest extends TestCase
 {
@@ -47,32 +48,13 @@ class GuzzleHttpOutputTest extends TestCase
             $config->getUri()
         );
 
-        $this->assertIsArray($config->getHeaders());
+        self::assertTrue(is_array($config->getHeaders()));
 
         $httpOutput = (new GuzzleHttpOutput())
             ->setConfig($config);
 
         // Test compatibility
         self::assertTrue($httpOutput::checkCompatibility());
-
-        // Test write
-        $client = $this->getMockBuilder(Client::class)
-            ->getMock()
-        ;
-        $client
-            ->method('post')
-            ->willReturn(new Response(200))
-        ;
-
-        $httpOutput = $this->getMockBuilder(GuzzleHttpOutput::class)
-            ->onlyMethods(['getClient'])
-            ->getMock()
-        ;
-        $httpOutput->setConfig($config);
-        $httpOutput->method('getClient')
-            ->willReturn($client);
-
-        $httpOutput->write($message = 'This is an stdout message', $client);
     }
 
 }

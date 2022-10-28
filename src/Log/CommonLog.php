@@ -19,17 +19,37 @@ class CommonLog implements LogInterface
     const METHOD_DELETE = 'DELETE';
     const METHOD_OPTION = 'OPTION';
 
+    protected $dateTime;
+    protected $level;
+    protected $ip;
+    protected $userId;
+    protected $method;
+    protected $uri;
+    protected $httpProtocol;
+    protected $httpStatus;
+    protected $sizeInBytes;
+
     public function __construct(
-        protected \DateTime $dateTime,
-        protected string $level,
-        protected string $ip,
-        protected string $userId,
-        protected string $method,
-        protected string $uri,
-        protected string $httpProtocol,
-        protected int $httpStatus,
-        protected int $sizeInBytes
-    ) {}
+        \DateTime $dateTime,
+        string $level,
+        string $ip,
+        string $userId,
+        string $method,
+        string $uri,
+        string $httpProtocol,
+        int $httpStatus,
+        int $sizeInBytes
+    ) {
+        $this->dateTime = $dateTime;
+        $this->level = $level;
+        $this->ip = $ip;
+        $this->userId = $userId;
+        $this->method = $method;
+        $this->uri = $uri;
+        $this->httpProtocol = $httpProtocol;
+        $this->httpStatus = $httpStatus;
+        $this->sizeInBytes = $sizeInBytes;
+    }
 
     /**
      * Get level

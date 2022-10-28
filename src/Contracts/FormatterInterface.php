@@ -12,5 +12,5 @@ use Sebk\SmallLogger\Contracts\LogInterface;
 
 interface FormatterInterface
 {
-    public function format(LogInterface $log): mixed;
+    public function format(LogInterface $log);
 }

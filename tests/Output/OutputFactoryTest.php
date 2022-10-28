@@ -14,6 +14,7 @@ use Sebk\SmallLogger\Output\Config\HttpConfig;
 use Sebk\SmallLogger\Output\Config\StdOutputConfig;
 use Sebk\SmallLogger\Output\Exception\OutputException;
 use Sebk\SmallLogger\Output\FileOutput;
+use Sebk\SmallLogger\Output\GuzzleHttpOutput;
 use Sebk\SmallLogger\Output\OutputFactory;
 use Sebk\SmallLogger\Output\StdOutput;
 use Sebk\SmallLogger\Output\SwooleHttpOutput;
@@ -21,7 +22,7 @@ use Sebk\SmallLogger\Output\SwooleHttpOutput;
 class OutputFactoryTest extends TestCase
 {
 
-    public function testTypes(): void
+    public function testTypes()
     {
 
         // Test standard output
@@ -53,23 +54,23 @@ class OutputFactoryTest extends TestCase
         ));
 
         $this->assertInstanceOf(
-            SwooleHttpOutput::class,
+            GuzzleHttpOutput::class,
             $http
         );
 
         $this->assertTrue($http->checkCompatibility());
 
         // Test new type
-        $factory = (new OutputFactory())->addOutput('test', SwooleHttpOutput::class);
+        OutputFactory::addOutput('test', GuzzleHttpOutput::class);
 
-        $http = $factory->get('test', new HttpConfig(
+        $http = OutputFactory::get('test', new HttpConfig(
             'test.com',
             8080,
             true
         ));
 
         $this->assertInstanceOf(
-            SwooleHttpOutput::class,
+            GuzzleHttpOutput::class,
             $http
         );
     }
@@ -79,7 +80,7 @@ class OutputFactoryTest extends TestCase
 
         $this->expectException(OutputException::class);
 
-        (new OutputFactory())->get('test', new HttpConfig(
+        OutputFactory::get('tester', new HttpConfig(
             'test.com',
             8080,
             true

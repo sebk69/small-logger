@@ -18,7 +18,7 @@ use Swoole\Coroutine\Http\Client;
 class SwooleHttpOutput implements OutputInterface
 {
 
-    protected HttpConfig $outputConfig;
+    protected $outputConfig;
 
     /**
      * Return true if require dependencies are installed

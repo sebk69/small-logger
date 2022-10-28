@@ -17,7 +17,7 @@ use Sebk\SmallLogger\Output\Config\HttpConfig;
 class GuzzleHttpOutput implements OutputInterface
 {
 
-    protected HttpConfig $outputConfig;
+    protected $outputConfig;
 
     /**
      * Return true if require dependencies are installed
@@ -62,7 +62,7 @@ class GuzzleHttpOutput implements OutputInterface
     public function write(string $message): OutputInterface
     {
         $method = $this->outputConfig->getMethod();
-        $this->getClient()->$method($this->outputConfig->getUri(), [
+        $this->getClient()->request($method, $this->outputConfig->getUri(), [
             'body' => $message,
             'headers' => $this->outputConfig->getHeaders(),
         ]);

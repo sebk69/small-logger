@@ -1,11 +1,4 @@
-FROM php:8.0-cli
-
-# install swoole
-RUN apt-get update && \
-    apt-get install -y libssl-dev
-RUN docker-php-ext-install sockets
-RUN printf "yes\nyes\nyes\nyes\nno\nno" | pecl install swoole
-RUN docker-php-ext-enable swoole
+FROM php:7.0-cli
 
 # install composer
 RUN apt-get update && \
@@ -20,6 +13,6 @@ WORKDIR /usr/lib/small-logger
 # run tests
 COPY . /usr/lib/small-logger
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer update
-RUN ./vendor/bin/phpunit --testdox tests
+RUN ./vendor/bin/phpunit tests
 
 ENTRYPOINT sleep infinity

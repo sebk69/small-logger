@@ -16,7 +16,14 @@ use Sebk\SmallLogger\Contracts\OutputInterface;
 class Stream implements StreamInterface
 {
 
-    public function __construct(protected FormatterInterface $formatter, protected OutputInterface $output) {}
+    protected $formatter;
+    protected $output;
+
+    public function __construct(FormatterInterface $formatter, OutputInterface $output)
+    {
+        $this->formatter = $formatter;
+        $this->output = $output;
+    }
 
     /**
      * Write log

@@ -12,6 +12,7 @@ use Sebk\SmallLogger\Contracts\LogInterface;
 use Sebk\SmallLogger\Contracts\StreamInterface;
 use Sebk\SmallLogger\Contracts\SwitchLogicInterface;
 use Sebk\SmallLogger\Output\Config\StdOutputConfig;
+use Sebk\SmallLogger\Output\OutputFactory;
 use Sebk\SmallLogger\Output\StdOutput;
 use Sebk\SmallLogger\Formatter\BasicLogTextFormatter;
 use Sebk\SmallLogger\Stream\Stream;
@@ -19,8 +20,8 @@ use Sebk\SmallLogger\Stream\Stream;
 class DefaultSwitchLogic implements SwitchLogicInterface
 {
 
-    protected Stream $streamStdOut;
-    protected Stream $streamStdErr;
+    protected $streamStdOut;
+    protected $streamStdErr;
 
     public function __construct()
     {

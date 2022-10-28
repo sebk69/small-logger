@@ -23,7 +23,7 @@ class Logger
      * @param SwitchLogicInterface $switchLogic
      * @return void
      */
-    public static function setSwitchLogic(SwitchLogicInterface $switchLogic): void
+    public static function setSwitchLogic(SwitchLogicInterface $switchLogic)
     {
         static::$switchLogic = $switchLogic;
     }
@@ -34,7 +34,7 @@ class Logger
      * @param array $data
      * @return void
      */
-    public static function log(LogInterface $log, array $data = []): void
+    public static function log(LogInterface $log, array $data = [])
     {
         static::$switchLogic->getStream($log, $data)->write($log);
     }
@@ -45,7 +45,8 @@ class Logger
      * @param \Closure $closure
      * @return void
      */
-    public static function registerShortcut(string $name, \Closure $closure): void {
+    public static function registerShortcut(string $name, \Closure $closure)
+    {
         static::$shortcuts[$name] = $closure;
     }
 
@@ -62,7 +63,8 @@ class Logger
      * @return void
      * @throws \Exception
      */
-    public static function __callStatic($name, $arguments): void {
+    public static function __callStatic($name, $arguments)
+    {
         if (array_key_exists($name, self::$shortcuts)) {
             $closure = self::$shortcuts[$name];
             $closure(...$arguments);

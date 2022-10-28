@@ -16,7 +16,7 @@ use Sebk\SmallLogger\Output\Config\StdOutputConfig;
 class StdOutput implements OutputInterface
 {
 
-    protected StdOutputConfig $outputConfig;
+    protected $outputConfig;
 
     /**
      * Set config
@@ -40,7 +40,7 @@ class StdOutput implements OutputInterface
      * @param string $message
      * @return $this
      */
-    public function write(string $message): StdOutput
+    public function write(string $message)
     {
         fwrite($this->outputConfig->getOutput(), $message . "\n");
 

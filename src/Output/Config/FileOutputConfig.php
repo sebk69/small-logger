@@ -13,7 +13,12 @@ use Sebk\SmallLogger\Contracts\OutputConfigInterface;
 class FileOutputConfig implements OutputConfigInterface
 {
 
-    public function __construct(protected string $filename) {}
+    protected $filename;
+    
+    public function __construct(string $filename)
+    {
+        $this->filename = $filename;
+    }
 
     /**
      * Get filename

@@ -23,7 +23,7 @@ class BasicLogTextFormatter implements FormatterInterface
      * @param BasicLog $log
      * @return string
      */
-    public function format(LogInterface $log): mixed
+    public function format(LogInterface $log)
     {
         if (!$log instanceof BasicLog) {
             throw new FormatterException(static::class . ' can format only ' . LogInterface::class . ' class that implements ' . BasicLog::class);

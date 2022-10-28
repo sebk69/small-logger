@@ -13,11 +13,19 @@ use Sebk\SmallLogger\Contracts\LogInterface;
 class BasicLog implements LogInterface, \JsonSerializable
 {
 
+    protected $dateTime;
+    protected $level;
+    protected $message;
+
     public function __construct(
-        protected \DateTime $dateTime,
-        protected string $level,
-        protected string $message,
-    ) {}
+        \DateTime $dateTime,
+        string $level,
+        string $message
+    ) {
+        $this->dateTime = $dateTime;
+        $this->level = $level;
+        $this->message = $message;
+    }
 
     /**
      * @return \DateTime
