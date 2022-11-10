@@ -63,10 +63,8 @@ class SwooleHttpOutput implements OutputInterface
             $client = new Client($this->outputConfig->getHost(), $this->outputConfig->getPort(), $this->outputConfig->isSsl());
 
             $method = $this->outputConfig->getMethod();
-            $client->$method($this->outputConfig->getUri(), [
-                'body' => $message,
-                'headers' => $this->outputConfig->getHeaders(),
-            ]);
+            $client->setHeaders($this->outputConfig->getHeaders());
+            $client->$method($this->outputConfig->getUri(), $message);
         });
 
         return $this;
