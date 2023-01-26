@@ -13,6 +13,14 @@ SwitchLogicInterface allow you to implements your own logic to manage multiple l
 
 It also possible to add shortcut to logger for easier use by final developer.
 
+# Migrated
+
+This lib has been migrated to [framagit](https://framagit.org/small) project.
+
+A new composer package is available at https://packagist.org/packages/small/small-logger
+
+Future commits will be done on framagit.
+
 ## Install
 
 ```bash
